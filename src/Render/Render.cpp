@@ -1,6 +1,5 @@
 #include "Render.h"
 
-
 static Window* window = nullptr;
 
 
@@ -19,9 +18,13 @@ void Render::init(Window* win)
 
 void Render::renderEnd()
 {
-	glClearColor(0.0, 0.0, 0.0, 1.0);
-	glClear(GL_COLOR_BUFFER_BIT);
 	swapBuffers();
+}
+
+void Render::renderStart()
+{
+	glClearColor(0.6f, 0.62f, 0.65f, 1);
+	glClear(GL_COLOR_BUFFER_BIT);
 }
 
 void Render::swapBuffers()

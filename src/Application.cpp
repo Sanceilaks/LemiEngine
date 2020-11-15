@@ -14,9 +14,12 @@ void Application::init(void)
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
+	
 
 	window = new Window(name, STARTUPSIZE);
 	window->createWindow();
+
+	//glfwSwapInterval(0);
 
 	glewExperimental = true;
 	if (glewInit() != GLEW_OK)
@@ -35,8 +38,7 @@ void Application::init(void)
 
 void Application::render(void)
 {
-
-	Render::renderEnd();
+	Render::renderStart();
 }
 
 void Application::update(double dt)
@@ -45,15 +47,26 @@ void Application::update(double dt)
 
 void Application::mainLoop(void)
 {
-	
+	VAO vao;
 
+	vao.addVertexBufferObject({
+		0, 0.5f, 0,
+		-0.5f, -0.5f, 0,
+		0.5f, -0.5f, 0
+		});
 
 	while (!window->onClose())
 	{
+		window->update();
+
 		EventManager::pullEvents();
 		EventManager::handleEvents();
 
 		render();
+
+		vao.drawTriangle(3);
+
+		Render::renderEnd();
 	}
 }
 

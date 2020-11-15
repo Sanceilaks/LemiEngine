@@ -117,6 +117,7 @@ void EventManager::handleEvents()
 	}
 }
 
+
 void EventManager::addEvent(Event* _event)
 {
 	event_list.push_back(_event);

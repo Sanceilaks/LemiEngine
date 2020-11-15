@@ -30,4 +30,6 @@ public:
 	void close();
 
 	bool onClose();
+
+	void update();
 };

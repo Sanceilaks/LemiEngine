@@ -67,3 +67,11 @@ bool Window::onClose()
 {
 	return glfwWindowShouldClose(glfwWindow);
 }
+
+void Window::update()
+{
+	if (title.c_str() != getTitle())
+		setTitle(title);
+
+	glfwSetWindowSize(glfwWindow, size.x, size.y);
+}
