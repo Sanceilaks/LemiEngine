@@ -5,15 +5,15 @@ Window* window = nullptr;
 std::vector<Event*> event_list;
 
 
-bool* EventManager::keysState;
-uint* EventManager::frames;
-uint EventManager::currentFrame = 0;
-float EventManager::deltaX = 0.0f;
-float EventManager::deltaY = 0.0f;
-float EventManager::mouseX = 0.0f;
-float EventManager::mouseY = 0.0f;
-bool EventManager::cursorLocked = false;
-bool EventManager::cursorStarted = false;
+bool* event_manger::keys_state;
+uint* event_manger::frames;
+uint event_manger::current_frame = 0;
+float event_manger::delta_x = 0.0f;
+float event_manger::delta_y = 0.0f;
+float event_manger::mouse_x = 0.0f;
+float event_manger::mouse_y = 0.0f;
+bool event_manger::cursor_locked = false;
+bool event_manger::cursor_started = false;
 
 #define MOUSE_BUTTONS 1024
 
@@ -21,95 +21,95 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 {
 	if (action == GLFW_PRESS)
 	{
-		EventManager::keysState[key] = true;
-		EventManager::frames[key] = EventManager::currentFrame;
+		event_manger::keys_state[key] = true;
+		event_manger::frames[key] = event_manger::current_frame;
 	}
 	else if (action == GLFW_RELEASE)
 	{
-		EventManager::keysState[key] = true;
-		EventManager::frames[key] = EventManager::currentFrame;
+		event_manger::keys_state[key] = true;
+		event_manger::frames[key] = event_manger::current_frame;
 	}
 }
 
 void cursor_position_callback(GLFWwindow* window, double xpos, double ypos)
 {
-	if (EventManager::cursorStarted) 
+	if (event_manger::cursor_started) 
 	{
-		EventManager::deltaX += xpos - EventManager::mouseX;
-		EventManager::deltaY += ypos - EventManager::mouseY;
+		event_manger::delta_x += xpos - event_manger::mouse_x;
+		event_manger::delta_y += ypos - event_manger::mouse_y;
 	}
 	else 
 	{
-		EventManager::cursorStarted = true;
+		event_manger::cursor_started = true;
 	}
-	EventManager::mouseX = xpos;
-	EventManager::mouseY = ypos;
+	event_manger::mouse_x = xpos;
+	event_manger::mouse_y = ypos;
 }
 
 void mouse_button_callback(GLFWwindow* window, int button, int action, int mode)
 {
 	if (action == GLFW_PRESS)
 	{
-		EventManager::keysState[button + MOUSE_BUTTONS] = true;
-		EventManager::frames[button + MOUSE_BUTTONS] = EventManager::currentFrame;
+		event_manger::keys_state[button + MOUSE_BUTTONS] = true;
+		event_manger::frames[button + MOUSE_BUTTONS] = event_manger::current_frame;
 	}
 	else if (action == GLFW_RELEASE)
 	{
-		EventManager::keysState[button + MOUSE_BUTTONS] = true;
-		EventManager::frames[button + MOUSE_BUTTONS] = EventManager::currentFrame;
+		event_manger::keys_state[button + MOUSE_BUTTONS] = true;
+		event_manger::frames[button + MOUSE_BUTTONS] = event_manger::current_frame;
 	}
 }
 
-void EventManager::init(Window* _window)
+void event_manger::init(Window* _window)
 {
 	window = _window;
 
-	keysState = new bool[1032];
+	keys_state = new bool[1032];
 	frames = new uint[1032];
 
-	memset(keysState, false, 1032 * sizeof(bool));
+	memset(keys_state, false, 1032 * sizeof(bool));
 	memset(frames, 0, 1032 * sizeof(uint));
 
-	glfwSetKeyCallback(window->glfwWindow, key_callback);
-	glfwSetMouseButtonCallback(window->glfwWindow, mouse_button_callback);
-	glfwSetCursorPosCallback(window->glfwWindow, cursor_position_callback);
+	glfwSetKeyCallback(window->mWindow, key_callback);
+	glfwSetMouseButtonCallback(window->mWindow, mouse_button_callback);
+	glfwSetCursorPosCallback(window->mWindow, cursor_position_callback);
 }
 
-bool EventManager::pressed(int code)
+bool event_manger::pressed(int code)
 {
 	if (code < 0 || code >= MOUSE_BUTTONS)
 		return false;
-	return keysState[code];
+	return keys_state[code];
 }
 
-bool EventManager::justPressed(int code)
+bool event_manger::just_pressed(int code)
 {
 	if (code < 0 || code >= MOUSE_BUTTONS)
 		return false;
-	return keysState[code] && frames[code] == currentFrame;
+	return keys_state[code] && frames[code] == current_frame;
 }
 
-bool EventManager::clicked(int key)
+bool event_manger::clicked(int key)
 {
 	int index = MOUSE_BUTTONS + key;
-	return keysState[index];
+	return keys_state[index];
 }
 
-bool EventManager::justClicked(int key)
+bool event_manger::just_clicked(int key)
 {
 	int index = MOUSE_BUTTONS + key;
-	return keysState[index] && frames[index] == currentFrame;
+	return keys_state[index] && frames[index] == current_frame;
 }
 
-void EventManager::pullEvents()
+void event_manger::pull_events()
 {
-	currentFrame++;
-	deltaX = 0.0f;
-	deltaY = 0.0f;
+	current_frame++;
+	delta_x = 0.0f;
+	delta_y = 0.0f;
 	glfwPollEvents();
 }
 
-void EventManager::handleEvents()
+void event_manger::handle_events()
 {
 	for (auto i : event_list)
 	{
@@ -118,7 +118,7 @@ void EventManager::handleEvents()
 }
 
 
-void EventManager::addEvent(Event* _event)
+void event_manger::add_event(Event* _event)
 {
 	event_list.push_back(_event);
 }

@@ -2,20 +2,25 @@
 
 Window::Window(const std::string& title, int w, int h, bool fullscreen) : title(title), size(w, h)
 {
-	glfwWindow = nullptr;
-
-
+	mWindow = nullptr;
 }
 
-Window::Window(const std::string& title, Vec2 size, bool fullscreen) : title(title), size(size)
+Window::Window(const std::string& title, Vec2 size, bool fullscreen) : size(size), title(title)
 {
+	mWindow = nullptr;
 }
 
-void Window::createWindow()
+Window::~Window()
 {
-	glfwWindow = glfwCreateWindow(size.x, size.y, title.c_str(), nullptr, nullptr);
+	glfwDestroyWindow(mWindow);
+	
+}
 
-	if (!glfwWindow)
+void Window::create_window()
+{
+	mWindow = glfwCreateWindow(size.x, size.y, title.c_str(), nullptr, nullptr);
+
+	if (!mWindow)
 	{
 		const char* str;
 		int code = glfwGetError(&str);
@@ -24,54 +29,54 @@ void Window::createWindow()
 		exit(-1);
 	}
 
-	glfwMakeContextCurrent(glfwWindow);
+	glfwMakeContextCurrent(mWindow);
 }
 
-void Window::swapBuffers()
+void Window::swap_buffers()
 {
-	glfwSwapBuffers(glfwWindow);
+	glfwSwapBuffers(mWindow);
 }
 
-void Window::setSize(Vec2 size)
+void Window::set_size(Vec2 size)
 {
-	setSize(size.x, size.y);
+	set_size(size.x, size.y);
 }
 
-void Window::setSize(int x, int y)
+void Window::set_size(int x, int y)
 {
 	this->size = Vec2(x, y);
 	glViewport(0, 0, x, y);
 }
 
-void Window::setTitle(const std::string& str)
+void Window::set_title(const std::string& str)
 {
-	glfwSetWindowTitle(glfwWindow, str.c_str());
+	glfwSetWindowTitle(mWindow, str.c_str());
 }
 
-Vec2 Window::getSize()
+Vec2 Window::get_size()
 {
 	return size;
 }
 
-std::string Window::getTitle()
+std::string Window::get_title()
 {
 	return title;
 }
 
 void Window::close()
 {
-	glfwSetWindowShouldClose(glfwWindow, true);
+	glfwSetWindowShouldClose(mWindow, true);
 }
 
-bool Window::onClose()
+bool Window::on_close()
 {
-	return glfwWindowShouldClose(glfwWindow);
+	return glfwWindowShouldClose(mWindow);
 }
 
 void Window::update()
 {
-	if (title.c_str() != getTitle())
-		setTitle(title);
+	if (title.c_str() != get_title())
+		set_title(title);
 
-	glfwSetWindowSize(glfwWindow, size.x, size.y);
+	glfwSetWindowSize(mWindow, size.x, size.y);
 }

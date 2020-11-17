@@ -14,7 +14,8 @@ public:
 	Window* window;
 
 	Application();
-
+	~Application();
+	
 	/*
 	Use:
 	<code>
@@ -28,7 +29,7 @@ public:
 	virtual void init(void);
 	virtual void render(void);
 	virtual void update(double dt);
-	virtual void mainLoop(void);
+	virtual void main_loop(void);
 
 	void run();
 };

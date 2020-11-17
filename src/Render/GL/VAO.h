@@ -13,8 +13,8 @@ public:
 	~VAO();
 
 	void bind();
-	void addVertexBufferObject(const std::vector<float>& data);
+	void add_vertex_buffer_object(const std::vector<float>& data);
 
-	void drawTriangle(GLsizei count);
+	void draw_triangle(GLsizei count);
 };
 

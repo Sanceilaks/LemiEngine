@@ -9,12 +9,18 @@ class TestApp : public Application
 	{
 		Application::init();
 
-		Application::window->setSize(800, 600);
-		Application::window->setTitle("Marat xyi");
+		Application::window->set_size(800, 600);
+		Application::window->set_title("Marat xyi");
 
-		EventManager::addEvent(new EscEvent());
+		event_manger::add_event(new EscEvent());
 	}
 
+	void render()
+	{
+		Application::render();
+
+		
+	}
 };
 
 int main()

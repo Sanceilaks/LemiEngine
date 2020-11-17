@@ -7,7 +7,7 @@ class EscEvent : public Event
 public:
 	virtual void handle(Window* window) override
 	{
-		if (EventManager::justPressed(GLFW_KEY_ESCAPE))
+		if (event_manger::just_pressed(GLFW_KEY_ESCAPE))
 			window->close();
 	}
 };

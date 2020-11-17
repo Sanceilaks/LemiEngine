@@ -8,30 +8,30 @@
 typedef unsigned int uint;
 
 
-class EventManager
+class event_manger
 {
 public:
-	static bool* keysState;
+	static bool* keys_state;
 	static uint* frames;
-	static uint currentFrame;
-	static float deltaX;
-	static float deltaY;
-	static float mouseX;
-	static float mouseY;
-	static bool cursorLocked;
-	static bool cursorStarted;
+	static uint current_frame;
+	static float delta_x;
+	static float delta_y;
+	static float mouse_x;
+	static float mouse_y;
+	static bool cursor_locked;
+	static bool cursor_started;
 
 	static void init(Window* window);
 
 	static bool pressed(int code);
-	static bool justPressed(int code);
+	static bool just_pressed(int code);
 
 	static bool clicked(int key);
-	static bool justClicked(int key);
+	static bool just_clicked(int key);
 
-	static void pullEvents();
+	static void pull_events();
 
-	static void handleEvents();
+	static void handle_events();
 
-	static void addEvent(Event* _event);
+	static void add_event(Event* _event);
 };

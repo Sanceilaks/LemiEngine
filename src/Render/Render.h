@@ -11,8 +11,9 @@ class Render
 {
 public:
 	static void init(Window* win);
-	static void renderEnd();
-	static void renderStart();
-	static void swapBuffers();
+	static void render_end();
+	static void render_start();
+	static void swap_buffers();
+	static void render();
 };
 

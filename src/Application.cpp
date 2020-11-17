@@ -7,6 +7,11 @@ Application::Application()
 
 }
 
+Application::~Application()
+{
+	delete window;
+}
+
 void Application::init(void)
 {
 	glfwInit();
@@ -17,7 +22,7 @@ void Application::init(void)
 	
 
 	window = new Window(name, STARTUPSIZE);
-	window->createWindow();
+	window->create_window();
 
 	//glfwSwapInterval(0);
 
@@ -32,46 +37,44 @@ void Application::init(void)
 	}
 
 	Render::init(window);
-	EventManager::init(window);
+	event_manger::init(window);
 	
 }
 
 void Application::render(void)
 {
-	Render::renderStart();
+	Render::render_start();
 }
 
 void Application::update(double dt)
 {
 }
 
-void Application::mainLoop(void)
+void Application::main_loop(void)
 {
 	VAO vao;
 
-	vao.addVertexBufferObject({
+	vao.add_vertex_buffer_object({
 		0, 0.5f, 0,
 		-0.5f, -0.5f, 0,
 		0.5f, -0.5f, 0
 		});
 
-	while (!window->onClose())
+	while (!window->on_close())
 	{
 		window->update();
 
-		EventManager::pullEvents();
-		EventManager::handleEvents();
+		event_manger::pull_events();
+		event_manger::handle_events();
 
 		render();
 
-		vao.drawTriangle(3);
-
-		Render::renderEnd();
+		Render::render_end();
 	}
 }
 
 void Application::run()
 {
 	init();
-	mainLoop();
+	main_loop();
 }

@@ -16,7 +16,7 @@ void VAO::bind()
 	glBindVertexArray(mVao);
 }
 
-void VAO::addVertexBufferObject(const std::vector<float>& data)
+void VAO::add_vertex_buffer_object(const std::vector<float>& data)
 {
 	GLuint vbo;
 	glGenBuffers(1, &vbo);
@@ -26,7 +26,7 @@ void VAO::addVertexBufferObject(const std::vector<float>& data)
 	mBuffers.push_back(vbo);
 }
 
-void VAO::drawTriangle(GLsizei count)
+void VAO::draw_triangle(GLsizei count)
 {
 	bind();
 
