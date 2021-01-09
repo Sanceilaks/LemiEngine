@@ -26,7 +26,7 @@ void VAO::add_vertex_buffer_object(const std::vector<float>& data)
 	mBuffers.push_back(vbo);
 }
 
-void VAO::draw_triangle(GLsizei count)
+void VAO::draw(GLsizei count)
 {
 	bind();
 

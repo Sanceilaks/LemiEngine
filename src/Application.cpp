@@ -57,7 +57,11 @@ void Application::main_loop(void)
 	vao.add_vertex_buffer_object({
 		0, 0.5f, 0,
 		-0.5f, -0.5f, 0,
-		0.5f, -0.5f, 0
+		0.5f, -0.5f, 0,
+		
+		1, 1.5f, 1,
+		-1.5f, -1.5f, 1,
+		1.5f, -1.5f, 1
 		});
 
 	while (!window->on_close())
@@ -68,6 +72,8 @@ void Application::main_loop(void)
 		event_manger::handle_events();
 
 		render();
+
+		vao.draw(6);
 
 		Render::render_end();
 	}

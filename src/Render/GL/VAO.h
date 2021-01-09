@@ -15,6 +15,6 @@ public:
 	void bind();
 	void add_vertex_buffer_object(const std::vector<float>& data);
 
-	void draw_triangle(GLsizei count);
+	void draw(GLsizei count);
 };
 
